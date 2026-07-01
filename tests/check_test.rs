@@ -1,9 +1,6 @@
 use rstest::rstest;
 use rust_concourse_resource::{
-	check::{
-		CheckResource,
-		VersionBuilder,
-	},
+	check,
 	resource::Resource,
 };
 use serde::{
@@ -29,7 +26,7 @@ struct DummyVersion {}
 		}
 	}
 	"#,
-	Ok(CheckResource {
+	Ok(check::Resource {
 		source: DummySource{
 			param1: "test".to_owned(),
 		},
@@ -45,7 +42,7 @@ struct DummyVersion {}
 		"version": {}
 	}
 	"#,
-	Ok(CheckResource{
+	Ok(check::Resource{
 		source: DummySource{
 			param1: "test".to_owned(),
 		},
@@ -67,9 +64,9 @@ struct DummyVersion {}
 )]
 fn check_get_resource(
 	#[case] input: &'static str,
-	#[case] expect: Result<CheckResource<DummySource, DummyVersion>, &str>,
+	#[case] expect: Result<check::Resource<DummySource, DummyVersion>, &str>,
 ) {
-	let check = CheckResource::<DummySource, DummyVersion>::from_reader(input.as_bytes());
+	let check = check::Resource::<DummySource, DummyVersion>::from_reader(input.as_bytes());
 
 	match (check, expect) {
 		(Ok(actual), Ok(expect)) => assert_eq!(actual, expect),
@@ -80,7 +77,7 @@ fn check_get_resource(
 
 #[rstest]
 fn test_version_builder() {
-	let result = VersionBuilder::<DummyVersion>::default()
+	let result = check::VersionBuilder::<DummyVersion>::default()
 		.version(DummyVersion {})
 		.version(DummyVersion {})
 		.build();

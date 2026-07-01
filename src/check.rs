@@ -1,4 +1,4 @@
-use crate::resource::Resource;
+use crate::resource;
 use serde::{
 	de::DeserializeOwned,
 	Deserialize,
@@ -7,12 +7,12 @@ use serde::{
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(deny_unknown_fields)]
-pub struct CheckResource<S, V> {
+pub struct Resource<S, V> {
 	pub version: Option<V>,
 	pub source: S,
 }
 
-impl<S, V> Resource for CheckResource<S, V>
+impl<S, V> resource::Resource for Resource<S, V>
 where
 	S: Serialize + DeserializeOwned,
 	V: Serialize + DeserializeOwned,
