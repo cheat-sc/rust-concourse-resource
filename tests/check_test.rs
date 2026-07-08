@@ -26,7 +26,7 @@ struct DummyVersion {}
 		}
 	}
 	"#,
-	Ok(check::Resource {
+	Ok(check::Request {
 		source: DummySource{
 			param1: "test".to_owned(),
 		},
@@ -42,7 +42,7 @@ struct DummyVersion {}
 		"version": {}
 	}
 	"#,
-	Ok(check::Resource{
+	Ok(check::Request{
 		source: DummySource{
 			param1: "test".to_owned(),
 		},
@@ -64,9 +64,9 @@ struct DummyVersion {}
 )]
 fn check_get_resource(
 	#[case] input: &'static str,
-	#[case] expect: Result<check::Resource<DummySource, DummyVersion>, &str>,
+	#[case] expect: Result<check::Request<DummySource, DummyVersion>, &str>,
 ) {
-	let check = check::Resource::<DummySource, DummyVersion>::from_reader(input.as_bytes());
+	let check = check::Request::<DummySource, DummyVersion>::from_reader(input.as_bytes());
 
 	match (check, expect) {
 		(Ok(actual), Ok(expect)) => assert_eq!(actual, expect),
