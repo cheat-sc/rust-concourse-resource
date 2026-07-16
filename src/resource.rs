@@ -1,6 +1,7 @@
 use crate::error::ResourceError;
 use serde::{
 	de::DeserializeOwned,
+	Deserialize,
 	Serialize,
 };
 use serde_json::{
@@ -17,4 +18,18 @@ pub trait Resource: Sized + DeserializeOwned + Serialize {
 	fn to_json(&self) -> String {
 		json!(&self).to_string()
 	}
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+pub struct Metadata {
+	pub name: String,
+	pub value: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Response<V> {
+	pub version: V,
+	pub metadata: Vec<Metadata>,
 }
