@@ -7,12 +7,12 @@ use serde::{
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(deny_unknown_fields)]
-pub struct Resource<S, V> {
+pub struct Request<S, V> {
 	pub version: Option<V>,
 	pub source: S,
 }
 
-impl<S, V> resource::Resource for Resource<S, V>
+impl<S, V> resource::Resource for Request<S, V>
 where
 	S: Serialize + DeserializeOwned,
 	V: Serialize + DeserializeOwned,
