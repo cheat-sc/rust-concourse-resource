@@ -1,4 +1,7 @@
-use std::env;
+use std::{
+	borrow::Cow,
+	env,
+};
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -8,7 +11,7 @@ pub enum ResourceError {
 
 	#[error("`{name}` is not set")]
 	VarError {
-		name: String,
+		name: Cow<'static, str>,
 		#[source]
 		source: env::VarError,
 	},
