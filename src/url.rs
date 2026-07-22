@@ -36,23 +36,23 @@ pub fn build_concourse_url() -> Result<String, ResourceError> {
 	Ok(format!(
 		"{}/teams/{}/pipelines/{}/jobs/{}/builds/{}{}",
 		env::var("ATC_EXTERNAL_URL").map_err(|err| ResourceError::VarError {
-			name: "ATC_EXTERNAL_URL".to_owned(),
+			name: "ATC_EXTERNAL_URL".into(),
 			source: err
 		})?,
 		env::var("BUILD_TEAM_NAME").map_err(|err| ResourceError::VarError {
-			name: "BUILD_TEAM_NAME".to_owned(),
+			name: "BUILD_TEAM_NAME".into(),
 			source: err
 		})?,
 		env::var("BUILD_PIPELINE_NAME").map_err(|err| ResourceError::VarError {
-			name: "BUILD_PIPELINE_NAME".to_owned(),
+			name: "BUILD_PIPELINE_NAME".into(),
 			source: err
 		})?,
 		env::var("BUILD_JOB_NAME").map_err(|err| ResourceError::VarError {
-			name: "BUILD_JOB_NAME".to_owned(),
+			name: "BUILD_JOB_NAME".into(),
 			source: err
 		})?,
 		env::var("BUILD_NAME").map_err(|err| ResourceError::VarError {
-			name: "BUILD_NAME".to_owned(),
+			name: "BUILD_NAME".into(),
 			source: err
 		})?,
 		if let Ok(instance_vars) = env::var("BUILD_PIPELINE_INSTANCE_VARS") {
