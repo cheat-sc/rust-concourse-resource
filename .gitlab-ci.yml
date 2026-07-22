@@ -4,10 +4,15 @@ default:
   - pacman -Syu --noconfirm rustup
   - rustup toolchain install nightly
 
+include:
+- project: "renovate-bot/renovate-runner"
+  file: "/templates/renovate.gitlab-ci.yml"
+
 stages:
 - sanity
 - build
 - test
+- renovate
 
 clippy:
   stage: sanity
@@ -30,3 +35,12 @@ unit-test:
   stage: test
   script:
   - cargo test
+
+renovate:
+  before_script: []
+  stage: renovate
+  rules:
+  # triggered by scheduler
+  - if: $CI_PIPELINE_SOURCE == "schedule"
+  # triggered by web ui
+  - if: $CI_PIPELINE_SOURCE == "web"
