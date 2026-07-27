@@ -13,4 +13,4 @@ thiserror = "1.0.58"
 [dev-dependencies]
 envtestkit = "1.1.2"
 rstest = "0.18.2"
-rstest_reuse = "0.6.0"
+rstest_reuse = "0.7.0"
